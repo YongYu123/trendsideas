@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+        <title>Trendsideas</title>
+    </head>
+    <body>
+
+        <header class="navbar navbar-dark bg-dark">
+        <div class="container">
+            {% for entry in craft.entries.section('mainPage').all() %}
+
+                <a class="navbar-brand" href="/" aria-label="Trendsideas">
+                    <img src="{{entry.logoImage.one().getUrl()}}" alt="">
+                </a>
+
+                <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+
+                {% for block in entry.socialIcons.all() %}
+                {% switch block.type %}
+                {% case 'icons' %}
+
+                   <li class="nav-item">
+                        <a href="{{block.iconurl}}" class="nav-link p-2" target="_blank" rel="noopener" aria-label="{{block.iconname}}">
+                           <i class="{{block.iconstyle}}"></i> 
+
+                           </a>
+                    </li>
+
+                    {% endswitch %}
+                    {% endfor %}
+
+                   
+
+                </ul>
+
+            {% endfor %}
+          </div>
+        </header>
+
+        <nav class="navbar navbar-expand-lg navbar-light container">
+            <a class="navbar-brand" href="#"></a>
+            <button class="navbar-toggler flex-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav">
+                    {% for topic in craft.categories.group('topics').all() %}
+                        <li class="nav-item ">
+                            <a class="nav-link" href="{{topic.url}}">{{topic.title}}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </nav>
+
+        {% block main %}{% endblock %}
+
+        <footer class="p-2 mb-1 bg-dark text-white text-center">Trendsideas.com -
+            {{date()|date('Y')}}</footer>
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script defer="defer" src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    </body>
+</html>

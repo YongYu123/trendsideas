@@ -1,0 +1,82 @@
+{% extends '_layouts/main' %}
+
+{% block main %}
+
+    {# Hero Image #}
+    {% for entry in craft.entries.section('openingPage').all() %}
+        <div class="d-flex justify-content-center align-items-center text-white" style="background-position: center; background-size: cover;background-repeat: no-repeat; height:440px; background-image:linear-gradient(to bottom,rgba(0,0,0,.3) 0%,rgba(0,0,0,.3) 100%), url({{entry.heroImage.one().getUrl()}})">
+            <div class="text-center col-5">
+                <h1 class="font-weight-bold" style="">
+                    TRENDS
+                </h3>
+                <h2>
+                    {{entry.title}}</h2>
+                <hr class="border"/>
+                <h3 class="font-weight-light">{{entry.subtitle}}</h3>
+            </div>
+        </div>
+
+        <div class="container">
+
+            <div class="m-5 p-3">
+                <div class="text-center">
+                    <h3 class="mb-3">{{entry.linksTitle}}</h3>
+                    <div class="row">
+
+                        {% for block in entry.fieldBlocks.all() %}
+                            {% switch block.type %}
+                            {# LinksTable Block #}
+                            {% case 'linksTable' %}
+                                {% set image = block.linkLogo.one() %}
+                                <div class="col-sm">
+                                    <a href="{{block.linkUrl}}" target="{{block.linkTarget}}">
+                                        <img src="{{image.getUrl}}" alt="">
+                                    </a>
+                                    <p>
+                                        <a class="text-dark" href="{{block.linkUrl}}" target="{{block.linkTarget}}">{{block.linkTitle}}</a>
+                                    </p>
+                                </div>
+
+                                {# Links Button #}
+                                {% case 'links' %}
+                                </div>
+                                <a class="btn btn-warning text-white" href="{{block.buttonUrl}}" target="linkTarget">{{block.buttonTitle}}</a>
+
+                            </div>
+
+                        </div>
+                        <hr/>
+                        <div class="m-5 p-3">
+                            <div class="text-center">
+                                <h3 class="mb-3">{{entry.ideasTitle}}</h3>
+                                {# Ideas Block #}
+                                <div class="row">
+
+                                    {% case 'browsIdeas' %}
+                                        {% set ideaImage = block.backgroundPicture.one() %}
+
+                                        <div class="col-md-4" style=" padding: 3px !important;">
+                                            <a href="{{block.linkUrl}}" target="{{block.linkTarget}}">
+                                                <div class="col d-flex justify-content-center align-items-center " style="background-position: center; background-size: cover;background-repeat: no-repeat; height:220px; background-image:linear-gradient(to bottom,rgba(0,0,0,.3) 0%,rgba(0,0,0,.3) 100%), url({{ideaImage.getUrl()}})">
+                                                    <div class="col-10 text-white">
+                                                        <h5>{{block.isLogo}}</h5>
+                                                        <h4>{{block.linkTitle}}</h4>
+
+                                                        <button type="button" class="btn btn-outline-warning" href="{{block.linkUrl}}" target="{{block.linkTarget}}">{{block.buttonTitle}}</button>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        {% endswitch %}
+                                    {% endfor %}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+            {% endblock %}
